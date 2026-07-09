@@ -14,7 +14,7 @@
   ============================================================
 -->
 <script>
-  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxXccjHHMGGf4CZshZEDUKplg9B7Ult3mDwOgi4h6Rr-gqnywJ3ROcmTx57KnGtv9Et/exec";
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz2FAFSEj7eM--dPtV2XHYRUxBe33Y_zUJXKjARtlJnLj-zhVlNcyCSEzoxUM3lfvqSUQ/exec";
 </script>
 
 <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -268,6 +268,7 @@ async function safeSet(key, value) {
         try {
             await fetch(APPS_SCRIPT_URL, {
                 method: "POST",
+                mode: "no-cors",
                 headers: { "Content-Type": "text/plain;charset=utf-8" },
                 body: JSON.stringify({ key, value: JSON.stringify(value) }),
             });
@@ -1622,8 +1623,6 @@ function StudentDashboard({ studentId, students, tests, scores, manuals, onLogou
                                 React.createElement("td", { className: "ss-mono" }, cAvg == null ? "―" : fmt1(cAvg)),
                                 React.createElement("td", { className: "ss-mono " + (d > 0 ? "delta up" : d < 0 ? "delta down" : "delta flat") }, d == null ? "―" : (d > 0 ? "+" : "") + fmt1(d)),
                                 React.createElement("td", null, t.pdfUrl ? React.createElement("a", { href: t.pdfUrl, target: "_blank", rel: "noreferrer", style: { color: "var(--ink)" } }, "\u554F\u984C\u3092\u898B\u308B") : "―"),
-                                                                    React.createElement(Icon, { name: "book", size: 11 }),
-                                    m.label || `教材${i + 1}`)))))),
                                 React.createElement("td", null, t.videoUrl ? React.createElement("a", { href: t.videoUrl, target: "_blank", rel: "noreferrer", style: { color: "var(--ink)" } }, "\u6620\u50CF\u3092\u898B\u308B") : "―")));
                         }))))),
             React.createElement("div", { className: "card" },
@@ -1665,9 +1664,6 @@ function StudentDashboard({ studentId, students, tests, scores, manuals, onLogou
                             "\u7279\u306B\u300C",
                             weakBottom.filter((w) => w.gap < 0).slice(0, 3).map((w) => w.tag).join("・"),
                             "\u300D\u304C\u30AF\u30E9\u30B9\u5E73\u5747\u3092\u4E0B\u56DE\u3063\u3066\u3044\u307E\u3059\u3002\u512A\u5148\u7684\u306B\u5FA9\u7FD2\u3057\u307E\u3057\u3087\u3046\u3002"))),
-                                            React.createElement(Icon, { name: "book", size: 13 }),
-                        w.tag,
-                        m.label ? `（${m.label}）` : "")))))),
                     weak.map((w) => {
                         const pct = Math.min(100, (Math.abs(w.gap || 0) / maxAbsGap) * 50);
                         return (React.createElement("div", { className: "weak-row-wrap", key: w.tag },
@@ -1680,9 +1676,7 @@ function StudentDashboard({ studentId, students, tests, scores, manuals, onLogou
                                             background: w.gap == null ? "var(--ink-soft)" : w.gap < 0 ? "var(--alert)" : "var(--growth)",
                                         } }),
                                     React.createElement("div", { className: "weak-mark", style: { left: "50%" } })),
-                                React.createElement("div", { className: "gapval" }, w.gap == null ? "―" : (w.gap > 0 ? "+" : "") + fmt1(w.gap) + "%")),
-                                                            React.createElement(Icon, { name: "book", size: 11 }),
-                                m.label || `教材${i + 1}`)))))));
+                                React.createElement("div", { className: "gapval" }, w.gap == null ? "―" : (w.gap > 0 ? "+" : "") + fmt1(w.gap) + "%"))));
                     }),
                     React.createElement("div", { className: "note", style: { marginTop: 12, fontSize: 11.5, color: "var(--ink-soft)" } }, "\u6570\u5024\u306F\u30AF\u30E9\u30B9\u5E73\u5747\u5F97\u70B9\u7387\u3068\u306E\u5DEE\uFF08\u30DE\u30A4\u30CA\u30B9\u304C\u82E6\u624B\u5206\u91CE\uFF09\u3002\u4E2D\u592E\u306E\u7DDA\u304C\u30AF\u30E9\u30B9\u5E73\u5747\u3067\u3059\u3002")))),
             myTests.some((t) => t.description) && (React.createElement("div", { className: "card" },
